@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gaigai.coolweather.service.AutoUpdateService;
 import com.gaigai.coolweather.util.HttpCallbackListener;
 import com.gaigai.coolweather.util.HttpUtil;
 import com.gaigai.coolweather.util.Utility;
@@ -88,6 +89,10 @@ public class WeatherActivity extends Activity {
 		currentDate.setText(preferences.getString("current_date", ""));
 		weatherInfoLayout.setVisibility(View.VISIBLE);
 		cityName.setVisibility(View.VISIBLE);
+		
+		//启动定时任务
+		Intent intent = new Intent(this, AutoUpdateService.class);
+		startService(intent);
 	}
 
 	/**

@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.gaigai.coolweather.WeatherActivity"></activity>
+        <service android:name="com.gaigai.coolweather.service.AutoUpdateService"></service>
+        <receiver android:name="com.gaigai.coolweather.service.AutoUpdateReceiver"></receiver>
     </application>
 
 </manifest>
