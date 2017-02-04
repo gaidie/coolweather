@@ -110,6 +110,7 @@ public class Utility {
 			saveWeatherInfo(context, cityName, weatherCode, temp1, temp2, weatherDesp, publishTime);
 		} catch (Exception e) {
 			// TODO: handle exception
+			Log.e("JSONE", e.getMessage());
 		}
 	}
 

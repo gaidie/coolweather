@@ -1,12 +1,15 @@
 package com.gaigai.coolweather;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,6 +26,9 @@ public class WeatherActivity extends Activity {
 	private TextView temp1;
 	private TextView temp2;
 	private TextView currentDate;
+	
+	private Button switchCity;
+	private Button refresh;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,34 @@ public class WeatherActivity extends Activity {
 		}else {
 			showWeather();//没有的话 就显示本地数据
 		}
+		initEvents();
+	}
+
+	private void initEvents() {
+		// TODO Auto-generated method stub
+		switchCity.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(WeatherActivity.this, ChooseAreaActivity.class);
+				intent.putExtra("from_weather_activity", true);
+				startActivity(intent);
+				finish();
+			}
+		});
+		refresh.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				publishTime.setText("同步中。。。。");
+				SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
+				String weatherCode = sp.getString("weather_code", "");
+				if (!TextUtils.isEmpty(weatherCode)){
+					queryWeatherInfo(weatherCode);
+				}
+			}
+		});
 	}
 
 	private void showWeather() {
@@ -126,6 +160,8 @@ public class WeatherActivity extends Activity {
 		temp1 = (TextView) findViewById(R.id.temp1);
 		temp2 = (TextView) findViewById(R.id.temp2);
 		currentDate = (TextView) findViewById(R.id.current_date);
+		switchCity = (Button) findViewById(R.id.switch_city);
+		refresh = (Button) findViewById(R.id.refresh_weather);
 	}
 	
 }
